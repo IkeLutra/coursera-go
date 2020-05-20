@@ -15,11 +15,13 @@ type Person struct {
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) < 1 {
-		log.Fatal(errors.New("Please supply a file of names"))
+	var filename string
+	fmt.Print("Enter a filename: ")
+	_, err := fmt.Scan(&filename)
+	if err != nil {
+		log.Fatal(errors.New("Filename invalid"))
 	}
-	file, err := os.Open(args[0])
+	file, err := os.Open(filename)
 	if err != nil {
 		log.Fatal(err)
 	}
