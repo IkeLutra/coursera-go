@@ -8,14 +8,10 @@ import (
 	"strings"
 )
 
-type Person struct {
-	Name    string `json:"name"`
-	Address string `json:"address"`
-}
-
 func main() {
 	var name, address string
 	var err error
+	person := make(map[string]string)
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("Please enter a name:\n")
 	name, err = reader.ReadString('\n')
@@ -24,6 +20,7 @@ func main() {
 		os.Exit(1)
 	}
 	name = strings.TrimSpace(name)
+	person["name"] = name
 	fmt.Printf("Please enter an address:\n")
 	address, err = reader.ReadString('\n')
 	if err != nil {
@@ -31,10 +28,7 @@ func main() {
 		os.Exit(1)
 	}
 	address = strings.TrimSpace(address)
-	person := Person{
-		Name:    name,
-		Address: address,
-	}
+	person["address"] = address
 	json, err := json.Marshal(person)
 	if err != nil {
 		fmt.Printf("Could not marshall JSON\n")
